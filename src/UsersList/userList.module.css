@@ -1,10 +1,10 @@
-.userListContainer{
+.userListContainer {
   display: flex;
   flex-direction: column;
   width: 50%;
 }
 
-.userList{
+.userList {
   width: 100%;
   border: 1px solid blue;
   border-radius: 10px;
@@ -14,7 +14,13 @@
   margin-top: 30px;
 }
 
-.userList>div{
+.userList > div {
   cursor: pointer;
   width: 100%;
+  font: bold 16px "Arial Black";
+}
+
+.active{
+  background: #9cc6f8;
+  border-radius: 10px;
 }

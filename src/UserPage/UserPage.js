@@ -13,7 +13,7 @@ const UserPage = ({ name, shortInfo,id, bio, pic, error,isFetching }) => {
             src={pic}
             style={{ width: '200px', height: '200px' }}
           />
-          <p>Name: {name}</p>
+          <h2>Name: {name}</h2>
           <p>Short info: {shortInfo}</p>
           <p>{bio}</p>
           <p>{error}</p>

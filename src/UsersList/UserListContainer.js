@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import fetchUsers from './userListAction';
@@ -14,6 +14,9 @@ const UserListContainer = ({
   isFetching,
   error
 }) => {
+  const [isActive, setToggle] = useState(false);
+  const [activeId, setId] = useState('');
+
   useEffect(() => {
     async function fetchData() {
       await fetchUsers();
@@ -24,10 +27,12 @@ const UserListContainer = ({
 
   const showUser = (id, newQueryParams, shortInfo, name) => {
     setUserParams(id, newQueryParams, shortInfo, name);
+    setToggle(true);
+    setId(id);
   };
 
-  const deleteItem = (id) =>{
-    window.confirm('Delete user?') ? deleteUser(id) : console.log('No');
+  const deleteItem = id => {
+    window.confirm('Delete user?') && deleteUser(id);
   };
 
   const userData = Object.keys(users).map(val => {
@@ -40,6 +45,8 @@ const UserListContainer = ({
         more={users[val].more}
         showUser={showUser}
         deleteItem={deleteItem}
+        isActive={isActive}
+        activeId={activeId}
       />
     );
   });
