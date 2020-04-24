@@ -1,11 +1,10 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import style from './userPage.module.css';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import style from './userPage.module.css';
 
 const UserPage = ({ name, shortInfo,id, bio, pic, error,isFetching }) => {
-  return(
-
+  return (
     <div className={style.userPage}>
       {id ? (
         <>
@@ -20,7 +19,7 @@ const UserPage = ({ name, shortInfo,id, bio, pic, error,isFetching }) => {
           <p>{error}</p>
         </>
       ) : (
-        <p>Information about the selected user will be displayed here.</p>
+        <h2>Information about the selected user will be displayed here.</h2>
       )}
       <div>{isFetching && <CircularProgress />}</div>
       <p>{error}</p>

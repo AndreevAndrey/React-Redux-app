@@ -6,7 +6,8 @@ import fetchUser from './userPageAction';
 const UserPageContainer = ({
   fetchUser,
   newQueryParams,
-  user:{id,bio,pic},
+  user:{bio,pic},
+  id,
   name,
   shortInfo,
   isFetching,
@@ -33,9 +34,10 @@ const UserPageContainer = ({
   );
 };
 const mapStateToProps = ({
-  usersList: { newQueryParams, name, shortInfo },
+  usersList: { id, newQueryParams, name, shortInfo },
   user: { user, isFetching, error }
 }) => ({
+  id,
   newQueryParams,
   name,
   shortInfo,

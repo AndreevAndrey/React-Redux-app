@@ -2,6 +2,7 @@ const FETCH_USERS = 'FETCH_USERS';
 const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
 const SET_USER_PARAMS = 'SET_USER_PARAMS';
+const DELETE_USER = 'DELETE_USER';
 
 const initialState = {
   users: '',
@@ -9,6 +10,7 @@ const initialState = {
   basePath: '',
   newQueryParams: '',
   error: '',
+  id: '',
   name: '',
   shortInfo: ''
 };
@@ -36,9 +38,17 @@ const userListReducer = (state = initialState, action) => {
     case SET_USER_PARAMS:
       return {
         ...state,
+        id: action.id,
         newQueryParams: action.newQueryParams,
         name: action.name,
         shortInfo: action.shortInfo
+      };
+
+    case DELETE_USER:
+      return {
+        ...state,
+        users: state.users.filter(user => user.id !== action.id),
+        id: ''
       };
     default:
       return state;
@@ -56,11 +66,14 @@ export const fetchUsersFailure = error => ({
   error
 });
 
-export const setUserParams = (newQueryParams, shortInfo, name) => ({
+export const setUserParams = (id, newQueryParams, shortInfo, name) => ({
   type: SET_USER_PARAMS,
+  id,
   newQueryParams,
   name,
   shortInfo
 });
+
+export const deleteUser = id => ({ type: DELETE_USER, id });
 
 export default userListReducer;

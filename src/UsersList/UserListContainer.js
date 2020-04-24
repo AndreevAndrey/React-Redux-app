@@ -4,9 +4,16 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import fetchUsers from './userListAction';
 import UserList from './UserList';
 import style from './userList.module.css';
-import { setUserParams } from './userListReducer';
+import { deleteUser, setUserParams } from './userListReducer';
 
-const UserListContainer = ({fetchUsers,setUserParams,users,isFetching,error}) => {
+const UserListContainer = ({
+  fetchUsers,
+  setUserParams,
+  deleteUser,
+  users,
+  isFetching,
+  error
+}) => {
   useEffect(() => {
     async function fetchData() {
       await fetchUsers();
@@ -15,13 +22,12 @@ const UserListContainer = ({fetchUsers,setUserParams,users,isFetching,error}) =>
     fetchData();
   }, [fetchUsers]);
 
-  const showUser = (newQueryParams, shortInfo, name) => {
-    setUserParams(newQueryParams, shortInfo, name);
+  const showUser = (id, newQueryParams, shortInfo, name) => {
+    setUserParams(id, newQueryParams, shortInfo, name);
   };
 
   const deleteItem = (id) =>{
-    window.confirm('Delete user?');
-    //TODO: add function delete
+    window.confirm('Delete user?') ? deleteUser(id) : console.log('No');
   };
 
   const userData = Object.keys(users).map(val => {
@@ -54,6 +60,8 @@ const mapStateToProps = ({ usersList: { users, isFetching, error } }) => ({
   error
 });
 
-export default connect(mapStateToProps, { fetchUsers, setUserParams })(
-  UserListContainer
-);
+export default connect(mapStateToProps, {
+  fetchUsers,
+  setUserParams,
+  deleteUser
+})(UserListContainer);
