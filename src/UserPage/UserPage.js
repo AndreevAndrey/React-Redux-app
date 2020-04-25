@@ -1,9 +1,26 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import PropTypes from 'prop-types';
 import style from './userPage.module.css';
 
-const UserPage = ({ name, shortInfo,id, bio, pic, error,isFetching }) => {
+const propTypes = {
+  name: PropTypes.string.isRequired,
+  shortInfo: PropTypes.string.isRequired,
+  id: PropTypes.number,
+  bio: PropTypes.string,
+  pic: PropTypes.string,
+  error: PropTypes.string.isRequired,
+  isFetching: PropTypes.bool.isRequired
+};
+
+const defaultProps = {
+  bio: '',
+  pic: '',
+  id: null
+};
+
+const UserPage = ({ name, shortInfo, id, bio, pic, error, isFetching }) => {
   return (
     <div className={style.userPage}>
       {id ? (
@@ -27,4 +44,6 @@ const UserPage = ({ name, shortInfo,id, bio, pic, error,isFetching }) => {
   );
 };
 
+UserPage.propTypes = propTypes;
+UserPage.defaultProps = defaultProps;
 export default UserPage;
