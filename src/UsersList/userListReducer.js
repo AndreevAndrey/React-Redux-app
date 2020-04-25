@@ -14,7 +14,8 @@ const initialState = {
   id: null,
   name: '',
   shortInfo: '',
-  inputValue: ''
+  inputValue: '',
+  deletedUsers: []
 };
 
 const userListReducer = (state = initialState, action) => {
@@ -49,6 +50,10 @@ const userListReducer = (state = initialState, action) => {
     case DELETE_USER:
       return {
         ...state,
+        deletedUsers: [
+          ...state.deletedUsers,
+          state.users.find(user => user.id === action.id)
+        ],
         users: state.users.filter(user => user.id !== action.id),
         id: null
       };

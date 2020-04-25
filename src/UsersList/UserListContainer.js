@@ -15,6 +15,7 @@ const propTypes = {
   users: PropTypes.any.isRequired,
   isFetching: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
+  deletedUsers: PropTypes.any.isRequired,
   inputValue: PropTypes.string.isRequired,
   setInputValue: PropTypes.func.isRequired
 };
@@ -27,7 +28,8 @@ const UserListContainer = ({
   users,
   inputValue,
   isFetching,
-  error
+  error,
+  deletedUsers
 }) => {
   const [isActive, setToggle] = useState(false);
   const [activeId, setId] = useState(null);
@@ -55,7 +57,7 @@ const UserListContainer = ({
     setInputValue(targetValue);
   };
 
-  const userData = Object.keys(users).map(val => (
+  const userList = Object.keys(users).map(val => (
     <UserList
       name={users[val].name}
       id={users[val].id}
@@ -69,10 +71,20 @@ const UserListContainer = ({
     />
   ));
 
+  const delUsers = Object.keys(deletedUsers).map(val => (
+    <UserList
+      deletedId={deletedUsers[val].id}
+      name={deletedUsers[val].name}
+      shortInfo={deletedUsers[val].shortInfo}
+      key={deletedUsers[val].id}
+    />
+  ));
   return (
     <div className={style.userListContainer}>
       <Search inputValue={inputValue} changeInputValue={changeInputValue} />
-      {userData}
+      {userList}
+      {!!deletedUsers.length && <h2>Deleted Users:</h2>}
+      {delUsers}
       <div>{isFetching && <CircularProgress />}</div>
       <div>
         <p>{error}</p>
@@ -82,7 +94,7 @@ const UserListContainer = ({
 };
 
 const mapStateToProps = ({
-  usersList: { users, isFetching, error, inputValue }
+  usersList: { users, isFetching, error, inputValue, deletedUsers }
 }) => ({
   users: (function searchItem() {
     if (inputValue)
@@ -93,7 +105,8 @@ const mapStateToProps = ({
   })(),
   isFetching,
   error,
-  inputValue
+  inputValue,
+  deletedUsers
 });
 
 UserListContainer.propTypes = propTypes;
