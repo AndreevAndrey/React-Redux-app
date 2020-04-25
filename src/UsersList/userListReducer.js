@@ -3,6 +3,7 @@ const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
 const SET_USER_PARAMS = 'SET_USER_PARAMS';
 const DELETE_USER = 'DELETE_USER';
+const SET_INPUT_VALUE = 'SET_INPUT_VALUE';
 
 const initialState = {
   users: '',
@@ -10,9 +11,10 @@ const initialState = {
   basePath: '',
   newQueryParams: '',
   error: '',
-  id: '',
+  id: null,
   name: '',
-  shortInfo: ''
+  shortInfo: '',
+  inputValue: ''
 };
 
 const userListReducer = (state = initialState, action) => {
@@ -48,8 +50,15 @@ const userListReducer = (state = initialState, action) => {
       return {
         ...state,
         users: state.users.filter(user => user.id !== action.id),
-        id: ''
+        id: null
       };
+
+    case SET_INPUT_VALUE:
+      return {
+        ...state,
+        inputValue: action.inputValue
+      };
+
     default:
       return state;
   }
@@ -75,5 +84,9 @@ export const setUserParams = (id, newQueryParams, shortInfo, name) => ({
 });
 
 export const deleteUser = id => ({ type: DELETE_USER, id });
+export const setInputValue = inputValue => ({
+  type: SET_INPUT_VALUE,
+  inputValue
+});
 
 export default userListReducer;
