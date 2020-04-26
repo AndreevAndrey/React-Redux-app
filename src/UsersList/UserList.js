@@ -14,7 +14,9 @@ const propTypes = {
   deleteItem: PropTypes.func,
   isActive: PropTypes.bool,
   activeId: PropTypes.number,
-  deletedId: PropTypes.number
+  deletedId: PropTypes.number,
+  recover: PropTypes.func,
+  removalTime: PropTypes.string
 };
 
 const defaultProps = {
@@ -24,7 +26,9 @@ const defaultProps = {
   deleteItem: null,
   isActive: false,
   more: null,
-  deletedId: null
+  deletedId: null,
+  recover: null,
+  removalTime: ''
 };
 
 const UserList = ({
@@ -36,7 +40,9 @@ const UserList = ({
   deleteItem,
   isActive,
   activeId,
-  deletedId
+  deletedId,
+  removalTime,
+  recover
 }) => {
   return (
     <div className={style.userList}>
@@ -52,9 +58,13 @@ const UserList = ({
       >
         <p>Name: {name}</p>
         <p>Short info: {shortInfo}</p>
+        {deletedId && <p>Deleted at: {removalTime}</p>}
       </div>
       {deletedId ? (
-        <ThreeSixtyIcon />
+        <ThreeSixtyIcon
+          onClick={() => recover(deletedId)}
+          style={{ cursor: 'pointer' }}
+        />
       ) : (
         <IconButton aria-label='delete' onClick={() => deleteItem(id)}>
           <DeleteIcon />

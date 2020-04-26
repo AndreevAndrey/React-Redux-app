@@ -4,6 +4,7 @@ const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
 const SET_USER_PARAMS = 'SET_USER_PARAMS';
 const DELETE_USER = 'DELETE_USER';
 const SET_INPUT_VALUE = 'SET_INPUT_VALUE';
+const RECOVER_USER = 'RECOVER_USER';
 
 const initialState = {
   users: '',
@@ -52,7 +53,10 @@ const userListReducer = (state = initialState, action) => {
         ...state,
         deletedUsers: [
           ...state.deletedUsers,
-          state.users.find(user => user.id === action.id)
+          {
+            ...state.users.find(user => user.id === action.id),
+            ...action.date
+          }
         ],
         users: state.users.filter(user => user.id !== action.id),
         id: null
@@ -62,6 +66,18 @@ const userListReducer = (state = initialState, action) => {
       return {
         ...state,
         inputValue: action.inputValue
+      };
+
+    case RECOVER_USER:
+      return {
+        ...state,
+        users: [
+          ...state.users,
+          state.deletedUsers.find(user => user.id === action.recoverId)
+        ],
+        deletedUsers: state.deletedUsers.filter(
+          user => user.id !== action.recoverId
+        )
       };
 
     default:
@@ -88,10 +104,12 @@ export const setUserParams = (id, newQueryParams, shortInfo, name) => ({
   shortInfo
 });
 
-export const deleteUser = id => ({ type: DELETE_USER, id });
+export const deleteUser = (id, date) => ({ type: DELETE_USER, id, date });
 export const setInputValue = inputValue => ({
   type: SET_INPUT_VALUE,
   inputValue
 });
+
+export const recoverUser = recoverId => ({ type: RECOVER_USER, recoverId });
 
 export default userListReducer;
