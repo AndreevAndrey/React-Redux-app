@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import UserPage from './UserPage';
-import fetchUser from './userPageAction';
+import UserInfoView from './UserInfoView';
+import fetchUser from './userInfoViewAction';
 
 const propTypes = {
   fetchUser: PropTypes.func.isRequired,
@@ -19,7 +19,7 @@ const defaultProps = {
   id: null
 };
 
-const UserPageContainer = ({
+const UserInfoViewContainer = ({
   fetchUser,
   newQueryParams,
   user: { bio, pic },
@@ -38,7 +38,7 @@ const UserPageContainer = ({
   }, [fetchUser, newQueryParams]);
 
   return (
-    <UserPage
+    <UserInfoView
       id={id}
       name={name}
       shortInfo={shortInfo}
@@ -62,6 +62,6 @@ const mapStateToProps = ({
   error
 });
 
-UserPageContainer.propTypes = propTypes;
-UserPageContainer.defaultProps = defaultProps;
-export default connect(mapStateToProps, { fetchUser })(UserPageContainer);
+UserInfoViewContainer.propTypes = propTypes;
+UserInfoViewContainer.defaultProps = defaultProps;
+export default connect(mapStateToProps, { fetchUser })(UserInfoViewContainer);

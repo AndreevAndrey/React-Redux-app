@@ -3,14 +3,14 @@ import './App.css';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
 import UserListContainer from '../UsersList/UserListContainer';
-import UserPageContainer from '../UserPage/UserPageContainer';
+import UserInfoViewContainer from '../UserInfoView/UserInfoViewContainer';
 
 function App() {
   return (
     <Provider store={store}>
       <div className='App'>
         <UserListContainer />
-        <UserPageContainer />
+        <UserInfoViewContainer />
       </div>
     </Provider>
   );
