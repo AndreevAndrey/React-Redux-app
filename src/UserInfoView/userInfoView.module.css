@@ -1,0 +1,9 @@
+.userInfo {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 30px;
+  color: #0c0ef8;
+  font: bold 16px "Arial Black";
+}

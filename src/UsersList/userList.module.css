@@ -1,0 +1,36 @@
+.userListContainer {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  align-items: center;
+}
+
+.userList {
+  width: 90%;
+  border: 1px solid blue;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.userList > div {
+  cursor: pointer;
+  width: 100%;
+  font: bold 16px "Arial Black";
+}
+
+.active {
+  background: #9cc6f8;
+  border-radius: 10px;
+}
+
+.userList .deletedUser {
+  background: grey;
+  border-radius: 10px;
+  cursor: auto;
+}
