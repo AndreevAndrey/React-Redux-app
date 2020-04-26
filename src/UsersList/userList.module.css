@@ -29,7 +29,8 @@
   border-radius: 10px;
 }
 
-.deletedUser {
+.userList .deletedUser {
   background: grey;
   border-radius: 10px;
+  cursor: auto;
 }

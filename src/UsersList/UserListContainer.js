@@ -5,7 +5,12 @@ import PropTypes from 'prop-types';
 import fetchUsers from './userListAction';
 import UserList from './UserList';
 import style from './userList.module.css';
-import { deleteUser, setInputValue, setUserParams } from './userListReducer';
+import {
+  deleteUser,
+  recoverUser,
+  setInputValue,
+  setUserParams
+} from './userListReducer';
 import Search from '../Search/Search';
 
 const propTypes = {
@@ -17,7 +22,8 @@ const propTypes = {
   error: PropTypes.string.isRequired,
   deletedUsers: PropTypes.any.isRequired,
   inputValue: PropTypes.string.isRequired,
-  setInputValue: PropTypes.func.isRequired
+  setInputValue: PropTypes.func.isRequired,
+  recoverUser: PropTypes.func.isRequired
 };
 
 const UserListContainer = ({
@@ -25,6 +31,7 @@ const UserListContainer = ({
   setUserParams,
   setInputValue,
   deleteUser,
+  recoverUser,
   users,
   inputValue,
   isFetching,
@@ -49,12 +56,17 @@ const UserListContainer = ({
   };
 
   const deleteItem = id => {
-    window.confirm('Delete user?') && deleteUser(id);
+    window.confirm('Delete user?') &&
+      deleteUser(id, { removalTime: new Date().toString() });
   };
 
   const changeInputValue = e => {
     const targetValue = e.target.value;
     setInputValue(targetValue);
+  };
+
+  const recover = id => {
+    recoverUser(id);
   };
 
   const userList = Object.keys(users).map(val => (
@@ -77,6 +89,8 @@ const UserListContainer = ({
       name={deletedUsers[val].name}
       shortInfo={deletedUsers[val].shortInfo}
       key={deletedUsers[val].id}
+      removalTime={deletedUsers[val].removalTime}
+      recover={recover}
     />
   ));
   return (
@@ -114,5 +128,6 @@ export default connect(mapStateToProps, {
   fetchUsers,
   setUserParams,
   deleteUser,
-  setInputValue
+  setInputValue,
+  recoverUser
 })(UserListContainer);
