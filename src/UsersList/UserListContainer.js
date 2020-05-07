@@ -42,9 +42,10 @@ const UserListContainer = ({
   const [activeId, setId] = useState(null);
 
   useEffect(() => {
-    async function fetchData() {
-      await fetchUsers();
+    function fetchData() {
+      fetchUsers();
     }
+
 
     fetchData();
   }, [fetchUsers]);
@@ -68,28 +69,29 @@ const UserListContainer = ({
   const recover = id => {
     recoverUser(id);
   };
+  const userList =
+    !!users &&
+    users.map(val => (
+      <UserList
+        name={val.name}
+        id={val.id}
+        key={val.id}
+        shortInfo={val.shortInfo}
+        more={val.more}
+        showUser={showUser}
+        deleteItem={deleteItem}
+        isActive={isActive}
+        activeId={activeId}
+      />
+    ));
 
-  const userList = Object.keys(users).map(val => (
+  const delUsers = deletedUsers.map(val => (
     <UserList
-      name={users[val].name}
-      id={users[val].id}
-      key={users[val].id}
-      shortInfo={users[val].shortInfo}
-      more={users[val].more}
-      showUser={showUser}
-      deleteItem={deleteItem}
-      isActive={isActive}
-      activeId={activeId}
-    />
-  ));
-
-  const delUsers = Object.keys(deletedUsers).map(val => (
-    <UserList
-      deletedId={deletedUsers[val].id}
-      name={deletedUsers[val].name}
-      shortInfo={deletedUsers[val].shortInfo}
-      key={deletedUsers[val].id}
-      removalTime={deletedUsers[val].removalTime}
+      deletedId={val.id}
+      name={val.name}
+      shortInfo={val.shortInfo}
+      key={val.id}
+      removalTime={val.removalTime}
       recover={recover}
     />
   ));

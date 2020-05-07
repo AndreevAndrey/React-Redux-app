@@ -47,6 +47,7 @@ const UserList = ({
   return (
     <div className={style.userList}>
       <div
+        role='presentation'
         className={
           isActive && activeId === id
             ? style.active
