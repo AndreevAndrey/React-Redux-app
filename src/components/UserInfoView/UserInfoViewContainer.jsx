@@ -11,7 +11,7 @@ import {
   getNewQueryParams,
   getShortInfo,
   getUser
-} from '../redux/selectors';
+} from '../../redux/selectors';
 
 const propTypes = {
   fetchUser: PropTypes.func.isRequired,

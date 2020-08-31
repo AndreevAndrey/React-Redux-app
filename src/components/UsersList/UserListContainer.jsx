@@ -18,7 +18,7 @@ import {
   getInputValue,
   getIsFetching,
   getUsers
-} from '../redux/selectors';
+} from '../../redux/selectors';
 
 const propTypes = {
   fetchUsers: PropTypes.func.isRequired,
