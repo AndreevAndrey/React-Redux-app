@@ -4,7 +4,7 @@ import {
   fetchUsersFailure,
   fetchUsersSuccess
 } from './userListReducer';
-import RequestApi from '../api/requestApi';
+import RequestApi from '../../api/requestApi';
 
 export default () => async dispatch => {
   dispatch(fetchDataUsers());
