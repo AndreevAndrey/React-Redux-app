@@ -12,6 +12,13 @@ import {
   setUserParams
 } from './userListReducer';
 import Search from '../Search/Search';
+import {
+  getDeletedUsers,
+  getError,
+  getInputValue,
+  getIsFetching,
+  getUsers
+} from '../redux/selectors';
 
 const propTypes = {
   fetchUsers: PropTypes.func.isRequired,
@@ -45,7 +52,6 @@ const UserListContainer = ({
     function fetchData() {
       fetchUsers();
     }
-
 
     fetchData();
   }, [fetchUsers]);
@@ -109,20 +115,12 @@ const UserListContainer = ({
   );
 };
 
-const mapStateToProps = ({
-  usersList: { users, isFetching, error, inputValue, deletedUsers }
-}) => ({
-  users: (function searchItem() {
-    if (inputValue)
-      return users.filter(user =>
-        user.name.toLowerCase().startsWith(inputValue.toLowerCase())
-      );
-    return users;
-  })(),
-  isFetching,
-  error,
-  inputValue,
-  deletedUsers
+const mapStateToProps = state => ({
+  users: getUsers(state),
+  isFetching: getIsFetching(state),
+  error: getError(state),
+  inputValue: getInputValue(state),
+  deletedUsers: getDeletedUsers(state)
 });
 
 UserListContainer.propTypes = propTypes;

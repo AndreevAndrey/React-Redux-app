@@ -3,6 +3,15 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import UserInfoView from './UserInfoView';
 import fetchUser from './userInfoViewAction';
+import {
+  getError,
+  getId,
+  getIsFetching,
+  getName,
+  getNewQueryParams,
+  getShortInfo,
+  getUser
+} from '../redux/selectors';
 
 const propTypes = {
   fetchUser: PropTypes.func.isRequired,
@@ -30,8 +39,8 @@ const UserInfoViewContainer = ({
   error
 }) => {
   useEffect(() => {
-    async function fetchDataUser() {
-      await fetchUser(newQueryParams);
+    function fetchDataUser() {
+      fetchUser(newQueryParams);
     }
 
     fetchDataUser();
@@ -49,17 +58,14 @@ const UserInfoViewContainer = ({
     />
   );
 };
-const mapStateToProps = ({
-  usersList: { id, newQueryParams, name, shortInfo },
-  user: { user, isFetching, error }
-}) => ({
-  id,
-  newQueryParams,
-  name,
-  shortInfo,
-  user,
-  isFetching,
-  error
+const mapStateToProps = state => ({
+  id: getId(state),
+  newQueryParams: getNewQueryParams(state),
+  name: getName(state),
+  shortInfo: getShortInfo(state),
+  user: getUser(state),
+  isFetching: getIsFetching(state),
+  error: getError(state)
 });
 
 UserInfoViewContainer.propTypes = propTypes;
